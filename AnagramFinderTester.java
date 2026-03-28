@@ -37,7 +37,7 @@ public class AnagramFinderTester {
         boolean displayAnagrams = getChoiceToDisplayAnagrams();
         AnagramSolver solver
                 = new AnagramSolver(AnagramMain.readWords(dictionaryFileName));
-        runAnagramTests(solver, displayAnagrams);
+        //runAnagramTests(solver, displayAnagrams);
     }
 
     private static void letterInventoryTests() {

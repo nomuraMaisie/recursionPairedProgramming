@@ -57,8 +57,25 @@ public class Recursive {
             throw new IllegalArgumentException("Failed precondition: "
                     + "listMnemonics");
         }
+        ArrayList<String> result = new ArrayList<>();
+        listMnemonicHelper(number, "", 0, result); 
+        return result;
+    }
 
-        return null; // TODO: Change as necessary
+    private static void listMnemonicHelper(String number, String curr, int index, 
+                        ArrayList<String> result) {
+        if (index == number.length()) {
+            result.add(curr);
+        }
+        else {
+            String letters = digitLetters(number.charAt(index));
+            index++;
+            for(int i = 0; i < letters.length(); i++) {
+                curr += letters.charAt(i);
+                listMnemonicHelper(number, curr, index, result);
+                curr = curr.substring(0, curr.length()-1);
+            }
+        }
     }
 
     /*
@@ -162,7 +179,29 @@ public class Recursive {
             throw new IllegalArgumentException("Failed precondition: "
                     + "canFlowOffMap");
         }
-        return true; // TODO: Change as necessary
+        return canFlowOffMapHelper(map, row, col);
+    }
+
+    private static boolean canFlowOffMapHelper(int[][] map, int row, int col) {
+        //base cases
+        if (!inbounds(row, col, map)) {
+            return true;
+        }
+        //rescursive case
+        int currElev = map[row][col];
+        int r = row;
+        int c = col;
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        for (int[] direction : directions) {
+            r += direction[0];
+            c += direction[1];
+            if (!inbounds(r, c, map) || map[r][c] < currElev) {
+                return canFlowOffMapHelper(map, r, c);
+            }
+            r -= direction[0];
+            c -= direction[1];
+        }
+        return false;
     }
 
     /*
