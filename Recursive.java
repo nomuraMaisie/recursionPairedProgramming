@@ -183,8 +183,29 @@ public class Recursive {
     }
 
     private static boolean canFlowOffMapHelper(int[][] map, int row, int col) {
-        //base cases
-        if (!inbounds(row, col, map)) {
+        // //base cases 1
+        // if (!inbounds(row, col, map)) {
+        //     return true;
+        // }
+        // //rescursive case
+        // int currElev = map[row][col];
+        // int r = row;
+        // int c = col;
+        // int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        // for (int[] direction : directions) {
+        //     r += direction[0];
+        //     c += direction[1];
+        //     if (!inbounds(r, c, map) || map[r][c] < currElev) {
+        //         return canFlowOffMapHelper(map, r, c);
+        //     }
+        //     r -= direction[0];
+        //     c -= direction[1];
+        // }
+        // //base case 2
+        // return false;
+        //WITHOUT inbounds()
+        //base cases 1
+        if (row == 0 || row == map.length-1 || col == 0 || col == map.length-1) {
             return true;
         }
         //rescursive case
@@ -195,12 +216,13 @@ public class Recursive {
         for (int[] direction : directions) {
             r += direction[0];
             c += direction[1];
-            if (!inbounds(r, c, map) || map[r][c] < currElev) {
+            if (map[r][c] < currElev) {
                 return canFlowOffMapHelper(map, r, c);
             }
             r -= direction[0];
             c -= direction[1];
         }
+        //base case 2
         return false;
     }
 
