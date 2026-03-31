@@ -16,7 +16,6 @@
 
 public class LetterInventory {
     private final int NUM_LETTERS = 26;
-    private final int A_VALUE = 97;
     private int[] inventory;
     private int size;
 
@@ -50,6 +49,7 @@ public class LetterInventory {
      * @return index of letter in the alphabet
      */
     private int getIndex(char ch) {
+        final int A_VALUE = 97;
         ch = Character.toLowerCase(ch);
         return ch - A_VALUE;
     }
