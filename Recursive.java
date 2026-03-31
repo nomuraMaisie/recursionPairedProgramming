@@ -173,15 +173,16 @@ public class Recursive {
      private static void drawSquares(Graphics g, int size, int limit,
                                     double x, double y) {
        if(size/3 >= limit) {
-           g.fillRect((int) x + size/3, (int) y + size/3, size/3, size/3);
-           drawSquares(g, size/3, limit, x, y);
-           drawSquares(g, size/3, limit, x + size/3, y);
-           drawSquares(g, size/3, limit, x + 2 * (size/3), y);
-           drawSquares(g, size/3, limit, x + 2 * (size/3), y + size/3);
-           drawSquares(g, size/3, limit, x + 2 * (size/3), y + 2 * (size/3));
-           drawSquares(g, size/3, limit, x + size/3, y + 2 * (size/3));
-           drawSquares(g, size/3, limit, x, y + 2 * (size/3));
-           drawSquares(g, size/3, limit, x, y + (size/3));
+            int newSize = size / 3;
+            g.fillRect((int) x + size/3, (int) y + size/3, size/3, size/3);
+            final int NUM_DRAW = 3;
+            for(int r = 0; r < NUM_DRAW; r++) {
+                double newY = y + (r * newSize);
+                for(int c = 0; c < NUM_DRAW; c++) {
+                    double newX = x + (c * newSize);
+                    drawSquares(g, newSize, limit, newX, newY);
+                }
+            }
        }  
     }
 
@@ -333,5 +334,4 @@ public class Recursive {
         }
         return best;
     }
-}
 }

@@ -32,12 +32,49 @@ public class AnagramFinderTester {
     public static void main(String[] args) {
 
         letterInventoryTests();
+        LIStudentTests();
 
         // tests on the anagram solver itself
         boolean displayAnagrams = getChoiceToDisplayAnagrams();
         AnagramSolver solver
                 = new AnagramSolver(AnagramMain.readWords(dictionaryFileName));
         //runAnagramTests(solver, displayAnagrams);
+    }
+
+    private static void LIStudentTests() {
+        //Test 1 constructor
+
+        //Test 2 constructor
+
+        //Test 3 get()
+
+        //Test 4 get()
+
+        //Test 5 size()
+
+        //Test 6 size()
+
+        //Test 7 isEmpty()
+
+        //Test 8 isEmpty()
+
+        //Test 9 toString()
+
+        //Test 10 toString()
+
+        //Test 11 toString()
+
+        //Test 13 add()
+
+        //Test 14 add()
+
+        //Test 15 subtract()
+
+        //Test 16 subtract()
+
+        //Test 19 equals()
+
+        //Test 20 equals()
     }
 
     private static void letterInventoryTests() {
