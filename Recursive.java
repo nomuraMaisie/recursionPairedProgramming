@@ -36,12 +36,27 @@ public class Recursive {
      * @return The number of elements in data that are followed immediately by
      * a value that is double the element.
      */
-    public static int nextIsDouble(int[] data) {
+   public static int nextIsDouble(int[] data) {
         if (data == null) {
-            throw new IllegalArgumentException("Failed precondition: "
+            throw new IllegalArgumentException("Failed precondition: " 
                     + "revString. parameter may not be null.");
         }
-        return 0; // TODO: Change as necessary
+        return nextIsDoubleHelper(data, 0);
+    }
+    private static int nextIsDoubleHelper(int[] val, int i) {
+        if (val.length == 1) {
+            return 0;
+        }
+        if (i == val.length - 2) {
+            if (val[i] * 2 == val[i + 1]) {
+                return 1;
+            }
+            return 0;
+        }
+        if (val[i] * 2 == val[i + 1]) {
+            return 1 + nextIsDoubleHelper(val, i + 1);
+        }
+        return nextIsDoubleHelper(val, i + 1);
     }
 
     /**
@@ -155,9 +170,19 @@ public class Recursive {
      * @param x the x coordinate of the upper left corner of the current square
      * @param y the y coordinate of the upper left corner of the current square
      */
-    private static void drawSquares(Graphics g, int size, int limit,
+     private static void drawSquares(Graphics g, int size, int limit,
                                     double x, double y) {
-        // TODO: Complete this method
+       if(size/3 >= limit) {
+           g.fillRect((int) x + size/3, (int) y + size/3, size/3, size/3);
+           drawSquares(g, size/3, limit, x, y);
+           drawSquares(g, size/3, limit, x + size/3, y);
+           drawSquares(g, size/3, limit, x + 2 * (size/3), y);
+           drawSquares(g, size/3, limit, x + 2 * (size/3), y + size/3);
+           drawSquares(g, size/3, limit, x + 2 * (size/3), y + 2 * (size/3));
+           drawSquares(g, size/3, limit, x + size/3, y + 2 * (size/3));
+           drawSquares(g, size/3, limit, x, y + 2 * (size/3));
+           drawSquares(g, size/3, limit, x, y + (size/3));
+       }  
     }
 
     /**
@@ -280,6 +305,33 @@ public class Recursive {
      * return value will be greater than or equal to 0.
      */
     public static int minDifference(int numTeams, int[] abilities) {
-        return -1; // TODO: Change as necessary
+        return minDifferenceHelper(numTeams, 0, abilities, new int[numTeams]);
     }
+    
+    private static int minDifferenceHelper(int numTeams, int pos, int[] abilities, int[] team) {
+        if(pos == abilities.length) {
+            int max = team[0];
+            int min = team[0];
+            for(int i = 0; i < numTeams; i++) {
+                if(team[i] > max) {
+                    max = team[i];
+                }
+                if(team[i] < min) {
+                    min = team[i];
+                }
+            }
+            return max - min;
+        }
+        int best = Integer.MAX_VALUE;
+        for(int i = 0; i < numTeams; i++) {
+            team[i]+=abilities[pos];
+            int min = minDifferenceHelper(numTeams, pos + 1, abilities, team);
+            team[i]-=abilities[pos];
+            if(min < best) {
+                best = min;
+            }
+        }
+        return best;
+    }
+}
 }
