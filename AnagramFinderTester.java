@@ -31,7 +31,7 @@ public class AnagramFinderTester {
      */
     public static void main(String[] args) {
 
-        letterInventoryTests();
+        //letterInventoryTests();
         LIStudentTests();
 
         // tests on the anagram solver itself
@@ -43,38 +43,96 @@ public class AnagramFinderTester {
 
     private static void LIStudentTests() {
         //Test 1 constructor
+        LetterInventory test1 = new LetterInventory("hello");
+        boolean actual = test1.toString().equals("ehllo");
+        showResults(true, actual, 1, "Constructor");
 
         //Test 2 constructor
+        LetterInventory test2 = new LetterInventory("A1b!B?");
+        actual = test2.toString().equals("abb");
+        showResults(true, actual, 2, "Constructor");
 
         //Test 3 get()
+        LetterInventory test3 = new LetterInventory("banana");
+        actual = (test3.get('a') == 3);
+        showResults(true, actual, 3, "get()");
 
         //Test 4 get()
+        actual = (test3.get('N') == 2);
+        showResults(true, actual, 4, "get()");
 
         //Test 5 size()
+        actual = (test2.size() == 3);
+        showResults(true, actual, 5, "size()");
 
         //Test 6 size()
+        actual = (test3.size() == 6);
+        showResults(true, actual, 6, "size()");
 
         //Test 7 isEmpty()
+        actual = test3.isEmpty();
+        showResults(false, actual, 7, "isEmpty()");
 
         //Test 8 isEmpty()
+        LetterInventory test4 = new LetterInventory("");
+        actual = test4.isEmpty();
+        showResults(true, actual, 8, "isEmpty()");
 
         //Test 9 toString()
+        LetterInventory test5 = new LetterInventory("cab");
+        actual = (test5.toString().equals("abc"));
+        showResults(true, actual, 9, "toString()");
 
         //Test 10 toString()
+        actual = (test3.toString().equals("aaabnn"));
+        showResults(true, actual, 10, "toString()");
 
-        //Test 11 toString()
+        //Test 11 add()
+        LetterInventory add1 = new LetterInventory("abc");
+        LetterInventory add2 = new LetterInventory("bcd");
+        LetterInventory addResult = add1.add(add2);
+        actual = (addResult.toString().equals("abbccd"));
+        showResults(true, actual, 11, "add()");
 
-        //Test 13 add()
+        //Test 12 add()
+        LetterInventory add3 = new LetterInventory("A!aB2");
+        LetterInventory add4 = new LetterInventory("bC?");
+        LetterInventory addResult2 = add3.add(add4);
+        actual = (addResult2.toString().equals("aabbc"));
+        showResults(true, actual, 12, "add()");
 
-        //Test 14 add()
+        //Test 13 subtract()
+        LetterInventory sub1 = new LetterInventory("banana");
+        LetterInventory sub2 = new LetterInventory("ana");
+        LetterInventory subResult = sub1.subtract(sub2);
+        actual = (subResult != null && subResult.toString().equals("abn"));
+        showResults(true, actual, 13, "subtract()");
 
-        //Test 15 subtract()
+        //Test 14 subtract()
+        LetterInventory sub3 = new LetterInventory("abc");
+        LetterInventory sub4 = new LetterInventory("abcd");
+        subResult = sub3.subtract(sub4);
+        actual = (subResult == null);
+        showResults(true, actual, 14, "subtract()");
 
-        //Test 16 subtract()
+        //Test 15 equals()
+        actual = test1.equals(test2);
+        showResults(false, actual, 14, "equals()");
 
-        //Test 19 equals()
+        //Test 16 equals()
+        LetterInventory eq1 = new LetterInventory("cats");
+        LetterInventory eq2 = new LetterInventory("tacs");
+        actual = eq1.equals(eq2);
+        showResults(true, actual, 16, "equals()");
+    }
 
-        //Test 20 equals()
+    private static void showResults(boolean expected, boolean actual, int testNum, String name) {
+        if (expected == actual) {
+            System.out.println("Passed test " + testNum);
+        }
+        else {
+            System.out.println("Failed test " + testNum + ": " + name);
+        }
     }
 
     private static void letterInventoryTests() {
