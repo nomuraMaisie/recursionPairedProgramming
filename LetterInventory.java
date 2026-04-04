@@ -10,8 +10,8 @@
  * UTEID 1: mkn762
  *
  * Name 2: Rajni Nitturi
- * Email address 2:
- * UTEID 2:
+ * Email address 2: rn22455@my.utexas.edu
+ * UTEID 2: rn22455
  */
 
 public class LetterInventory {
