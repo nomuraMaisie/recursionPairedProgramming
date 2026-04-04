@@ -9,9 +9,9 @@
  * Email address 1: rn22455@my.utexas.edu
  * UTEID 1: rn22455
  *
- * Name 2: 
- * Email address 2:
- * UTEID 2:
+ * Name 2: Maisie Nomura
+ * Email address 2: maisie.nomura@gmail.com
+ * UTEID 2: mkn762
  */
 
 import java.util.ArrayList;
