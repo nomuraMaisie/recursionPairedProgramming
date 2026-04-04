@@ -6,8 +6,8 @@
  * this assignment.
  *
  * Name 1: Rajni Nitturi
- * Email address 1:
- * UTEID 1:
+ * Email address 1: rn22455@my.utexas.edu
+ * UTEID 1: rn22455
  *
  * Name 2: Maisie Nomura
  * Email address 2: maisie.nomura@gmail.com
