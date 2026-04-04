@@ -9,12 +9,13 @@
  * Email address 1: maisie.nomura@gmail.com
  * UTEID 1: mkn762
  *
- * Name 2:
+ * Name 2: Rajni Nitturi
  * Email address 2:
  * UTEID 2:
  */
 
 public class LetterInventory {
+
     private final int NUM_LETTERS = 26;
     private int[] inventory;
     private int size;
@@ -22,12 +23,13 @@ public class LetterInventory {
     /**
      * Constructor for new LetterInventory
      *
-     * pre: word != null
+     * Big O: O(M+N)
      * 
+     * pre: word != null
+     *
      * @param word
      * @throws IllegalArgumentException if word == null
      */
-    //MUST BE O(M+N)
     public LetterInventory(String word) {
         if (word == null) {
             throw new IllegalArgumentException("Violation of precondition: word cannot be null");
@@ -45,6 +47,8 @@ public class LetterInventory {
 
     /**
      * Get the corresponding index of a letter in the alphabet
+     * 
+     * Big O: O(1)
      *
      * @return index of letter in the alphabet
      */
@@ -55,36 +59,41 @@ public class LetterInventory {
     }
 
     /**
-     * Returns the frequency of a letter 
+     * Returns the frequency of a letter
+     * 
+     * Big O: O(1)
      *
      * pre: c must be an English Letter
-     * 
+     *
      * @param c- letter to get frequency of
      * @return frequency of given letter
-     * @throws 
+     * @throws IllegalArgumentException if ch is not an English letter
      */
     public int get(char ch) {
         char lower = Character.toLowerCase(ch);
         if (lower < 'a' || lower > 'z') {
-            throw new IllegalArgumentException("Violation of precondition: c must be an " + 
-                "English letter.");
+            throw new IllegalArgumentException("Violation of precondition: c must be an "
+                    + "English letter.");
         }
         int index = getIndex(ch);
         return inventory[index];
     }
 
     /**
-     * Returns the letters in the inventory 
+     * Returns the letters in the inventory
+     * 
+     * Big O: O(1)
      *
      * @return size of inventory
-     * @throws 
      */
     public int size() {
         return size;
     }
 
     /**
-     * Determines if the LetterInventory is empty 
+     * Determines if the LetterInventory is empty
+     * 
+     * Big O: O(1)
      *
      * @return true if the LetterInventory is empty, false otherwise
      */
@@ -93,7 +102,8 @@ public class LetterInventory {
     }
 
     /**
-     * Returns a string representation with all letters in the inventory in alphabetical order
+     * Returns a string representation with all letters in the inventory in
+     * alphabetical order
      *
      * @return string representation of LetterInventory
      */
@@ -102,6 +112,7 @@ public class LetterInventory {
         String letters = "abcdefghijklmnopqrstuvwxyz";
         for (int i = 0; i < inventory.length; i++) {
             int num = inventory[i];
+            //only print letters the word contains
             if (num > 0) {
                 for (int j = 0; j < num; j++) {
                     char ch = letters.charAt(i);
@@ -114,21 +125,21 @@ public class LetterInventory {
 
     /**
      * Adds frequencies of calling LetterInventory and other LetterInventory
-     *
-     * pre: other != null
-     * post: calling object and other are not altered
      * 
+     * Big O: O(M)
+     *
+     * pre: other != null post: calling object and other are not altered
+     *
      * @param other- LetterInventory to add
      * @return new LetterInventory with added frequencies
      * @throws IllegalArgumentException if other is null
      */
-    //MUST BE O(M), M = LETTERS IN ALPHABET
     public LetterInventory add(LetterInventory other) {
         if (other == null) {
-           throw new IllegalArgumentException("Violation of precondition: other cannot be null");
+            throw new IllegalArgumentException("Violation of precondition: other cannot be null");
         }
         LetterInventory result = new LetterInventory("");
-        for(int i = 0; i < NUM_LETTERS; i++) {
+        for (int i = 0; i < NUM_LETTERS; i++) {
             int add = inventory[i] + other.inventory[i];
             result.inventory[i] = add;
             result.size += add;
@@ -136,26 +147,26 @@ public class LetterInventory {
         return result;
     }
 
-
     /**
-     * Subtracts frequencies of other LetterInventory from calling LetterInventory
-     *
-     * pre: other != null
-     * post: calling object and other are not altered
+     * Subtracts frequencies of other LetterInventory from calling
+     * LetterInventory
      * 
+     * Big O: O(M)
+     *
+     * pre: other != null post: calling object and other are not altered
+     *
      * @param other- LetterInventory to add
      * @return new LetterInventory with substracted frequencies
      * @throws IllegalArgumentException if other is null
      */
-    //MUST BE O(M), M = LETTERS IN ALPHABET
     public LetterInventory subtract(LetterInventory other) {
         if (other == null) {
-           throw new IllegalArgumentException("Violation of precondition: other cannot be null");
+            throw new IllegalArgumentException("Violation of precondition: other cannot be null");
         }
         LetterInventory result = new LetterInventory("");
-        for(int i = 0; i < NUM_LETTERS; i++) {
+        for (int i = 0; i < NUM_LETTERS; i++) {
             int subtract = inventory[i] - other.inventory[i];
-            if (subtract < 0 ){
+            if (subtract < 0) {
                 return null;
             }
             result.inventory[i] = subtract;
@@ -165,8 +176,8 @@ public class LetterInventory {
     }
 
     /**
-     * Determines if two LetterInventory objects are equal, meaning they have the same frequency
-     * for each letter
+     * Determines if two LetterInventory objects are equal, meaning they have
+     * the same frequency for each letter
      *
      * @return true if the LetterInventories are equal, false otherwise
      */
@@ -176,11 +187,10 @@ public class LetterInventory {
         }
         LetterInventory otherLI = (LetterInventory) other;
         for (int i = 0; i < NUM_LETTERS; i++) {
-            if(inventory[i] != otherLI.inventory[i]) {
+            if (inventory[i] != otherLI.inventory[i]) {
                 return false;
             }
         }
         return true;
     }
-
 }

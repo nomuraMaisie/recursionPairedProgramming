@@ -5,13 +5,13 @@
  * own work. I/we have neither given nor received unauthorized assistance on
  * this assignment.
  *
- * Name 1:
+ * Name 1: Rajni Nitturi
  * Email address 1:
  * UTEID 1:
  *
- * Name 2:
- * Email address 2:
- * UTEID 2:
+ * Name 2: Maisie Nomura
+ * Email address 2: maisie.nomura@gmail.com
+ * UTEID 2: mkn762
  */
 
 import java.awt.Color;
@@ -27,22 +27,30 @@ public class Recursive {
 
     /**
      * Problem 1: Returns the number of elements in data that are followed
-     * directly by value that is double that element.
-     * pre: data != null
-     * post: return the number of elements in data that are followed
-     * immediately by double the value
+     * directly by value that is double that element. pre: data != null post:
+     * return the number of elements in data that are followed immediately by
+     * double the value
      *
      * @param data The array to search.
-     * @return The number of elements in data that are followed immediately by
-     * a value that is double the element.
+     * @return The number of elements in data that are followed immediately by a
+     * value that is double the element.
      */
-   public static int nextIsDouble(int[] data) {
+    public static int nextIsDouble(int[] data) {
         if (data == null) {
-            throw new IllegalArgumentException("Failed precondition: " 
+            throw new IllegalArgumentException("Failed precondition: "
                     + "revString. parameter may not be null.");
         }
         return nextIsDoubleHelper(data, 0);
     }
+
+    /**
+     * Recursive helped to determine how many numbers are followed by the double of it
+     *
+     * @param val- array of number
+     * @param i- count of number followed by double
+     * @return total of numbers followed by double
+     * @throws 
+     */
     private static int nextIsDoubleHelper(int[] val, int i) {
         if (val.length == 1) {
             return 0;
@@ -60,35 +68,40 @@ public class Recursive {
     }
 
     /**
-     * Problem 2: Find all combinations of mnemonics for the given number.
-     * pre: number != null, number.length() > 0, all characters in number are
-     * digits
+     * Problem 2: Find all combinations of mnemonics for the given number. pre:
+     * number != null, number.length() > 0, all characters in number are digits
      *
      * @param number The number to find mnemonics for
      * @return The list of all possible mnemonics for the given number
      */
     public static ArrayList<String> listMnemonics(String number) {
-        if (number == null ||  number.length() == 0 || !allDigits(number)) {
+        if (number == null || number.length() == 0 || !allDigits(number)) {
             throw new IllegalArgumentException("Failed precondition: "
                     + "listMnemonics");
         }
         ArrayList<String> result = new ArrayList<>();
-        listMnemonicHelper(number, "", 0, result); 
+        listMnemonicHelper(number, "", 0, result);
         return result;
     }
 
-    private static void listMnemonicHelper(String number, String curr, int index, 
-                        ArrayList<String> result) {
+    /**
+     * Recursive method to create all possible mnemonics based on a series of digits
+     *
+     * @param number- series of digits
+     * @param curr- current mnemonic being created
+     * @param index- spot in series of digits
+     */
+    private static void listMnemonicHelper(String number, String curr, int index,
+            ArrayList<String> result) {
         if (index == number.length()) {
             result.add(curr);
-        }
-        else {
+        } else {
             String letters = digitLetters(number.charAt(index));
             index++;
-            for(int i = 0; i < letters.length(); i++) {
+            for (int i = 0; i < letters.length(); i++) {
                 curr += letters.charAt(i);
                 listMnemonicHelper(number, curr, index, result);
-                curr = curr.substring(0, curr.length()-1);
+                curr = curr.substring(0, curr.length() - 1);
             }
         }
     }
@@ -99,9 +112,10 @@ public class Recursive {
      * Used by method digitLetters
      */
     private static final List<String> LETTERS_FOR_NUMBER;
+
     static {
         String[] letters = {"0", "1", "ABC",
-                "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ"};
+            "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ"};
         ArrayList<String> lettersAsList = new ArrayList<>();
         for (String s : letters) {
             lettersAsList.add(s);
@@ -122,7 +136,6 @@ public class Recursive {
         int index = ch - '0';
         return LETTERS_FOR_NUMBER.get(index);
     }
-
 
     /*
      * Helper method for Problem 2: Phone Mnemonics
@@ -155,7 +168,7 @@ public class Recursive {
         DrawingPanel p = new DrawingPanel(size, size);
         Graphics g = p.getGraphics();
         g.setColor(Color.BLACK);
-        g.fillRect(0,0,size,size);
+        g.fillRect(0, 0, size, size);
         g.setColor(Color.WHITE);
         drawSquares(g, size, limit, 0, 0);
     }
@@ -170,28 +183,28 @@ public class Recursive {
      * @param x the x coordinate of the upper left corner of the current square
      * @param y the y coordinate of the upper left corner of the current square
      */
-     private static void drawSquares(Graphics g, int size, int limit,
-                                    double x, double y) {
-       if(size/3 >= limit) {
+    private static void drawSquares(Graphics g, int size, int limit,
+            double x, double y) {
+        if (size / 3 >= limit) {
             int newSize = size / 3;
-            g.fillRect((int) x + size/3, (int) y + size/3, size/3, size/3);
+            g.fillRect((int) x + newSize, (int) y + newSize, newSize, newSize);
             final int NUM_DRAW = 3;
-            for(int r = 0; r < NUM_DRAW; r++) {
+            for (int r = 0; r < NUM_DRAW; r++) {
                 double newY = y + (r * newSize);
-                for(int c = 0; c < NUM_DRAW; c++) {
+                for (int c = 0; c < NUM_DRAW; c++) {
                     double newX = x + (c * newSize);
                     drawSquares(g, newSize, limit, newX, newY);
                 }
             }
-       }  
+        }
     }
 
     /**
-     * Problem 4: Determine if water at a given point can flow off the map
-     * pre: map != null, map.length > 0, map is a rectangular matrix,
-     * 0 <= row < map.length, 0 <= col < map[0].length
-     * post: return true if a drop of water starting at the location specified
-     * by row, column can reach the edge of the map, false otherwise
+     * Problem 4: Determine if water at a given point can flow off the map pre:
+     * map != null, map.length > 0, map is a rectangular matrix, 0 <= row <
+     * map.length, 0 <= col < map[0].length post: return true if a drop of water
+     * starting at the location specified by row, column can reach the edge of
+     * the map, false otherwise
      *
      * @param map The elevations of a section of a map.
      * @param row The starting row of a drop of water.
@@ -208,38 +221,23 @@ public class Recursive {
         return canFlowOffMapHelper(map, row, col);
     }
 
+    /**
+     * Recursive method to determine if water can flow of a map from a given position 
+     *
+     * @param map- elevations of different positions
+     * @param row- row of current position
+     * @param col- column of current position
+     * @return true if the water can flow off, false otherwise
+     */
     private static boolean canFlowOffMapHelper(int[][] map, int row, int col) {
-        // //base cases 1
-        // if (!inbounds(row, col, map)) {
-        //     return true;
-        // }
-        // //rescursive case
-        // int currElev = map[row][col];
-        // int r = row;
-        // int c = col;
-        // int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        // for (int[] direction : directions) {
-        //     r += direction[0];
-        //     c += direction[1];
-        //     if (!inbounds(r, c, map) || map[r][c] < currElev) {
-        //         return canFlowOffMapHelper(map, r, c);
-        //     }
-        //     r -= direction[0];
-        //     c -= direction[1];
-        // }
-        // //base case 2
-        // return false;
-        //WITHOUT inbounds()
-        //base cases 1
-        if (row == 0 || row == map.length-1 || col == 0 || col == map.length-1) {
+        if (row == 0 || row == map.length - 1 || col == 0 || col == map.length - 1) {
             return true;
         }
-        //rescursive case
         int currElev = map[row][col];
         int r = row;
         int c = col;
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        for (int[] direction : directions) {
+        final int[][] DIRECTIONS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        for (int[] direction : DIRECTIONS) {
             r += direction[0];
             c += direction[1];
             if (map[r][c] < currElev) {
@@ -248,7 +246,6 @@ public class Recursive {
             r -= direction[0];
             c -= direction[1];
         }
-        //base case 2
         return false;
     }
 
@@ -292,12 +289,12 @@ public class Recursive {
 
     /**
      * Problem 5: Find the minimum difference possible between teams based on
-     * ability scores. The number of teams may be greater than 2. The goal is
-     * to minimize the difference between the team with the maximum total
-     * ability and the team with the minimum total ability.
-     * pre: numTeams >= 2, abilities != null, abilities.length >= numTeams
-     * post: return the minimum possible difference between the team with the
-     * maximum total ability and the team with the minimum total ability.
+     * ability scores. The number of teams may be greater than 2. The goal is to
+     * minimize the difference between the team with the maximum total ability
+     * and the team with the minimum total ability. pre: numTeams >= 2,
+     * abilities != null, abilities.length >= numTeams post: return the minimum
+     * possible difference between the team with the maximum total ability and
+     * the team with the minimum total ability.
      *
      * @param numTeams the number of teams to form
      * @param abilities the ability scores of the people to distribute
@@ -308,27 +305,36 @@ public class Recursive {
     public static int minDifference(int numTeams, int[] abilities) {
         return minDifferenceHelper(numTeams, 0, abilities, new int[numTeams]);
     }
-    
+
+    /**
+     * Recursive method to determine the minimum difference between teams 
+     *
+     * @param numTeams- the number of teams to create
+     * @param pos- position in the list of abilities
+     * @param abilities- list of abilities 
+     * @param team- running total of each team's ability
+     * @return minimum difference between the team's abilities
+     */
     private static int minDifferenceHelper(int numTeams, int pos, int[] abilities, int[] team) {
-        if(pos == abilities.length) {
+        if (pos == abilities.length) {
             int max = team[0];
             int min = team[0];
-            for(int i = 0; i < numTeams; i++) {
-                if(team[i] > max) {
+            for (int i = 0; i < numTeams; i++) {
+                if (team[i] > max) {
                     max = team[i];
                 }
-                if(team[i] < min) {
+                if (team[i] < min) {
                     min = team[i];
                 }
             }
             return max - min;
         }
         int best = Integer.MAX_VALUE;
-        for(int i = 0; i < numTeams; i++) {
-            team[i]+=abilities[pos];
+        for (int i = 0; i < numTeams; i++) {
+            team[i] += abilities[pos];
             int min = minDifferenceHelper(numTeams, pos + 1, abilities, team);
-            team[i]-=abilities[pos];
-            if(min < best) {
+            team[i] -= abilities[pos];
+            if (min < best) {
                 best = min;
             }
         }
